@@ -23,7 +23,6 @@ const AddTodo = (props) => {
     // onInputChange function write
     const onInputChange = (e) => {
         setItem({title: e.target.value});
-        console.log(item);
     };
 
     // onInputChage function textField 연결

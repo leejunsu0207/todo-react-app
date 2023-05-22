@@ -14,30 +14,32 @@ const Todo = (props) => {
 
     const checkboxEventhandler = (e) => {
         item.done = e.target.checked;
-        editItem();
-    }
+        editItem(item);
+    };
 
     const editEventHandler = (e) => {
-        item.title = e.target.value;
-        editItem();
-    }
+        setItem({...item, title : e.target.value});
+        // item.title = e.target.value;
+        // editItem();
+    };
 
     // turnOnReadOnly function write
     const turnOnReadOnly = (e) => {
-        if(e.key === "Enter"){
+        if(e.key === "Enter" && readOnly === false){
             setReadOnly(true);
+            editItem(item);
         }
-    }
+    };
 
     // turnOffReadOnly function write
     const turnOffReadOnly = () => {
         setReadOnly(false);
-    }
+    };
 
     // deleteEventhandler write
     const deleteEventhandler = () =>{
         deleteItem(item);
-    }
+    };
 
     return (
         <ListItem>

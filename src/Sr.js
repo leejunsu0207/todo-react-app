@@ -1,5 +1,4 @@
 import './App.css';
-import Todo from './Todo';
 import React, {useEffect, useState} from "react";
 import {
     AppBar,
@@ -11,30 +10,19 @@ import {
     Typography,
     Button
 } from "@mui/material";
-import AddTodo from "./AddTodo";
 import {call, signout} from "./service/ApiService";
 import {Link} from "react-router-dom";
+import ListSr from "./ListSr";
 
 
-function App() {
+function Sr() {
 
-    const [items, setItems] = useState([
-        /* {
-             id: "7",
-             title: "hello world",
-             done: true,
-         },
-         {
-             id: "4",
-             title : "hello world 1",
-             done : true,
-         },*/
-    ]);
+    const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
-        call("/todo", "GET", null)
+        call("/sr", "GET", null)
             .then((response) => {
                 setItems(response.data);
                 setLoading(false);
@@ -59,6 +47,7 @@ function App() {
         //         }
         //     );
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, {});
 
 
@@ -88,17 +77,8 @@ function App() {
         // setItems([...items, item]);
     };
 
-    let todoItems = items.length > 0 && (
-      <Paper style={{margin : 16}}>
-          <List>
-              {items.map((item) => (
-                  <Todo item={item}
-                        key={item.id}
-                        editItem={editItem}
-                        deleteItem={deleteItem}/>
-              ))}
-          </List>
-      </Paper>
+    let srItems = items.length >= 0 && (
+                <ListSr item={items} />
     );
 
     //navigationBar add
@@ -129,8 +109,7 @@ function App() {
         <div>
             {navigationBar} {/* 네비게이션 바 렌더링 */}
             <Container maxWidth="md">
-                <AddTodo addItem={addItem} />
-                <div className="TodoList">{todoItems}</div>
+                <div className="SrList">{srItems}</div>
             </Container>
         </div>
 
@@ -145,7 +124,7 @@ function App() {
         content = todoListPage;
     }
 
-    return <div className="App">{content}</div>;
+    return <div className="Sr">{content}</div>;
 
 
     // return (
@@ -160,4 +139,4 @@ function App() {
 
 }
 
-export default App;
+export default Sr;
